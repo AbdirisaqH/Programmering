@@ -6,12 +6,9 @@ import java.util.Scanner;
 public class Gissa {
 
 	public static void main(String[] args) {
-		// inledning
 		System.out.println("Gissa tal mellan 0-10: ");
-		// svar
 		System.out.println("Talet är: " + gissa());
 	}
-
 	/**
 	 * Gissa är en metod som låter en användare gissa talet som datan har och ger
 	 * ledtrådar om gissningen är för hög eller för låg, den ger också tillbaka
@@ -25,17 +22,17 @@ public class Gissa {
 		Random slump = new Random();
 		int ANTAL_TAL = slump.nextInt(10);
 
-		// Sätter upp så att anvädaren kan gissa
+		
 		int gissningar = 0;
 		Scanner input = new Scanner(System.in);
 		int gissning = 0;
 
-		// Medan man fortfarande gissar ska detta programmet köras
+		// Medan man fortfarande gissar ska koden nedan köras
 		boolean vinna = false;
 		
 		while (vinna == false) {
 
-			// sätter upp hur användaren kan gissa
+			// Koden gör så att du kan skriva in gissningar flera gånger
 			gissning = input.nextInt();
 			gissningar++;
 
@@ -44,7 +41,7 @@ public class Gissa {
 				vinna = true;
 			}
 
-			// Det som händer om man gissar fel
+			// Följande koden ger ledtrådar om gissningen är för hög eller för låg
 			else if (gissning < ANTAL_TAL) {
 				System.out.println("TOO LOW");
 			}
