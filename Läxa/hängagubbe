@@ -1,0 +1,227 @@
+package hänga;
+
+import java.nio.Buffer;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
+
+public class test {
+
+	public static void main(String[] args) {
+		System.out.println("REGLER");
+		System.out.println("1. Gissa på bokstäverna i det dolda ordet du kan gissa på flera på en gång men var"
+				+ " beredd på konsekvenserna ");
+		System.out.println("2. Om du skriver en bokstav mer än en gång "
+				+ "eller den bokstaven du gissar på inte finns med i ordet så förlorar du 1 liv ");
+		System.out.println("3. Gubben har 7 liv och om liven = 0 så förlorar du, ha det så kul!!");
+		System.out.println();
+		Scanner myScanner = new Scanner(System.in);
+		StringBuffer buffer = new StringBuffer();
+
+		// Initierar variablerna
+		String doltOrd;
+		int position;
+		int förloradeLiv = 0;
+		int totalaLiv = 7;
+		int ordKvar;
+		boolean gissaOrd;
+
+		// Används för att hålla gissningar
+		StringBuffer gissadeBokstäver;
+		Set<Character> gissningar = new HashSet<Character>();
+		Character gissning;
+		
+		// rader nedan avnvänds för att få ut ett random tal
+		String[] Biblo = { "ö", "en", "haj", "till", "turbo", "snigel", "äckligt", "accenten", "fackspråk",
+				"tacksamhet" };
+		Random slumpOrd = new Random();
+		int slupIndex = slumpOrd.nextInt(Biblo.length);
+		int slumpOrdLängd;
+		
+		doltOrd = Biblo[slupIndex];
+
+		// tar reda på längden av slump ordet
+		slumpOrdLängd = doltOrd.length();
+		System.out.println(slumpOrdLängd + " bokstäver i ordet");
+		ordKvar = slumpOrdLängd;
+
+		// en loop som skriver ut _ för varje bokstav
+		for (position = 0; position < slumpOrdLängd; position++) {
+			System.out.print("_ ");
+		}
+		System.out.println();
+
+		// loopen för gissningar börjar
+		while (ordKvar > 0 && förloradeLiv < 7) {
+			// gissning = alla char på linjen
+			gissning = myScanner.findWithinHorizon(".", 0).charAt(0);
+			// kollar om gissningen är inne i doltOrd
+			gissaOrd = (doltOrd.indexOf(gissning)) != -1;
+
+			if (gissaOrd == false) {
+				förloradeLiv++;
+				System.out.print("Du har kvar ");
+				System.out.print(totalaLiv - förloradeLiv);
+				System.out.println(" liv av 7");
+				
+				// loop som skriver ut _ även om gissningen är fel
+				for (position = 0; position < slumpOrdLängd; position++) {
+					if (doltOrd.charAt(position) == gissning) {
+						System.out.print(gissning + " ");
+						ordKvar--;
+					} else {
+						System.out.print("_ ");
+					}
+				}
+				// Skriver ut en unik hänga gubbe för varje liv förlorat
+				if (förloradeLiv == 1) {
+					System.out.println(" \n" + " \n" + "|      \n" + "|      \n" + "|\n" + "|\n" + "|\n" + "|\n" + "|\n"
+							+ "|\n" + "|");
+				}
+				if (förloradeLiv == 2) {
+					System.out.println();
+					System.out.println(" \n" + " ------\n" + "|      |\n" + "|      O\n" + "|\n" + "|\n" + "|\n" + "|\n"
+							+ "|\n" + "|\n" + "|");
+				}
+				if (förloradeLiv == 3) {
+					System.out.println();
+					System.out.println(" \n" + " ------\n" + "|      |\n" + "|      O\n" + "|      |\n" + "|      |\n"
+							+ "|      |\n" + "|\n" + "|\n" + "|\n" + "|");
+				}
+				if (förloradeLiv == 4) {
+					System.out.println();
+					System.out.println(" \n" + " ------\n" + "|      |\n" + "|      O\n" + "|      |\n" + "|      |\n"
+							+ "|      |\n" + "|      |\n" + "|       \\\n" + "|        \\\n" + "|         \\");
+				}
+
+				if (förloradeLiv == 5) {
+					System.out.println();
+					System.out.println(" \n" + " ------\n" + "|      |\n" + "|      O\n" + "|      |\n" + "|      |\n"
+							+ "|      |\n" + "|      |\n" + "|     / \\\n" + "|    /   \\\n" + "|   /     \\");
+				}
+
+				if (förloradeLiv == 6) {
+					System.out.println();
+					System.out.println(
+							" \n" + " ------\n" + "|      |\n" + "|      O  /\n" + "|      | /\n" + "|      |/\n"
+									+ "|      |\n" + "|      |\n" + "|     / \\\n" + "|    /   \\\n" + "|   /     \\");
+				}
+				if (förloradeLiv == 7) {
+					System.out.println();
+					System.out.println(
+							" \n" + " ------\n" + "|      |\n" + "|   \\  O  /\n" + "|    \\ | /\n" + "|     \\|/\n"
+									+ "|      |\n" + "|      |\n" + "|     / \\\n" + "|    /   \\\n" + "|   /     \\");
+
+				}
+				// Dessa rader skriver ut din nuvarande position t.ex vilka rätta svar du har fått
+				System.out.println(" ");
+				System.out.print("Bokstäver kvar: ");
+				System.out.println(ordKvar);
+				System.out.print("Rätta bokstäver: ");
+				System.out.println(gissningar);
+				gissadeBokstäver = buffer.append(gissning + ",");
+				System.out.print("Gissade bokstäver: ");
+				System.out.println(gissadeBokstäver);
+				System.out.println(" ");
+			} 
+			// Om din gissning är rätt
+			else {
+				// loop som skriver ut positionen den rätt gissningen har i ordet och _
+				for (position = 0; position < slumpOrdLängd; position++) {
+					if (doltOrd.charAt(position) == gissning) {
+						System.out.print(gissning + " ");
+						ordKvar--;
+					} else {
+						System.out.print("_ ");
+					}
+				}
+				if (gissningar.add(gissning)) {
+					// kollar om gissningen är inne i doltOrd
+					gissaOrd = (doltOrd.indexOf(gissning)) != -1;
+					
+				} 
+				// Vad som händer om du gissar en bokstav mer än en gång
+				else {
+					System.out.println();
+					ordKvar++;
+					System.out.println("DU HAR REDAN GISSAT DENNA BOKSTAV!");
+					förloradeLiv++;
+					System.out.print("Du har kvar ");
+					System.out.print(totalaLiv - förloradeLiv);
+					System.out.println(" liv av 7");
+					
+					// Skriver ut en unik hänga gubbe för varje liv förlorat
+					if (förloradeLiv == 1) {
+						System.out.println();
+						System.out.println(" \n" + " \n" + "|      \n" + "|      \n" + "|\n" + "|\n" + "|\n" + "|\n"
+								+ "|\n" + "|\n" + "|");
+					}
+					if (förloradeLiv == 2) {
+						System.out.println();
+						System.out.println(" \n" + " ------\n" + "|      |\n" + "|      O\n" + "|\n" + "|\n" + "|\n"
+								+ "|\n" + "|\n" + "|\n" + "|");
+					}
+					if (förloradeLiv == 3) {
+						System.out.println();
+						System.out.println(" \n" + " ------\n" + "|      |\n" + "|      O\n" + "|      |\n"
+								+ "|      |\n" + "|      |\n" + "|\n" + "|\n" + "|\n" + "|");
+					}
+					if (förloradeLiv == 4) {
+						System.out.println();
+						System.out.println(" \n" + " ------\n" + "|      |\n" + "|      O\n" + "|      |\n"
+								+ "|      |\n" + "|      |\n" + "|      |\n" + "|       \\\n" + "|        \\\n"
+								+ "|         \\");
+					}
+					if (förloradeLiv == 5) {
+						System.out.println();
+						System.out.println(" \n" + " ------\n" + "|      |\n" + "|      O\n" + "|      |\n"
+								+ "|      |\n" + "|      |\n" + "|      |\n" + "|     / \\\n" + "|    /   \\\n"
+								+ "|   /     \\");
+					}
+
+					if (förloradeLiv == 6) {
+						System.out.println();
+						System.out.println(" \n" + " ------\n" + "|      |\n" + "|      O  /\n" + "|      | /\n"
+								+ "|      |/\n" + "|      |\n" + "|      |\n" + "|     / \\\n" + "|    /   \\\n"
+								+ "|   /     \\");
+					}
+					if (förloradeLiv == 7) {
+						System.out.println();
+						System.out.println(" \n" + " ------\n" + "|      |\n" + "|   \\  O  /\n" + "|    \\ | /\n"
+								+ "|     \\|/\n" + "|      |\n" + "|      |\n" + "|     / \\\n" + "|    /   \\\n"
+								+ "|   /     \\");
+
+					}
+				}
+				// Dessa rader skriver ut din nuvarande position t.ex hur många bokstäver är kvar
+				System.out.println(" ");
+				System.out.print("Bokstäver kvar: ");
+				System.out.println(ordKvar);
+				System.out.print("Rätta bokstäver: ");
+				System.out.println(gissningar);
+				gissadeBokstäver = buffer.append(gissning + ",");
+				System.out.print("Gissade bokstäver: ");
+				System.out.println(gissadeBokstäver);
+				System.out.println(" ");
+
+			}
+			// Skriver ut ordet om användaren förlorar
+			if (förloradeLiv == totalaLiv) {
+				System.out.println("GUBBEN ÄR DÖD!");
+				System.out.print("Ordet var: ");
+				System.out.println(doltOrd);
+				break;
+			}
+			// Skriver ut ordet och hur många liv du hade kvar när du vinner
+			if (ordKvar == 0) {
+				System.out.print("GRATIS DU VANN!!! Ordet var ");
+				System.out.println(doltOrd);
+				System.out.print("Och du klarade spelet med ");
+				System.out.print(totalaLiv - förloradeLiv);
+				System.out.print(" liv kvar grattis");
+			}
+		}
+
+	}
+}
