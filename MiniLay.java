@@ -12,30 +12,32 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 
-public class MiniLay extends Application{
+public class MiniLay extends Application implements EventHandler<ActionEvent> {
+
+    MiniNum miniNum = new MiniNum(this);
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
         launch(args);
     }
+    TextField field = new TextField();
     Font font = new Font("SansSerif", 30);
     Font font2 = new Font("SansSerif", 20);
-    Button knappPlus;
-    Button knappMinus;
-    Button knappMulti;
-    Button knappDela;
-    Button knappComma;
-    Button knappLika;
-    Button knapp0;
-    Button knapp1;
-    Button knapp2;
-    Button knapp3;
-    Button knapp4;
-    Button knapp5;
-    Button knapp6;
-    Button knapp7;
-    Button knapp8;
-    Button knapp9;
+    Button bPlus;
+    Button bMinus;
+    Button bMulti;
+    Button bDela;
+    Button bComma;
+    Button bLika;
+    Button b0;
+    Button b1;
+    Button b2;
+    Button b3;
+    Button b4;
+    Button b5;
+    Button b6;
+    Button b7;
+    Button b8;
+    Button b9;
     Stage stage;
     Scene scene;
     BorderPane mainLayout;
@@ -44,74 +46,90 @@ public class MiniLay extends Application{
     public void start(Stage primaryStage) throws Exception {
         stage=primaryStage;
 
-        knappComma = new Button(",");
-        knappComma.setMinSize(75, 75);
-        knappComma.setFont(font);
-        knapp0 = new Button("0");
-        knapp0.setMinSize(75, 75);
-        knapp0.setFont(font);
-        knappLika = new Button("=");
-        knappLika.setMinSize(75, 75);
-        knappLika.setFont(font);
-        knappDela = new Button("/");
-        knappDela.setMinSize(75, 75);
-        knappDela.setFont(font2);
+        bComma = new Button(",");
+        bComma.setOnAction(this::handle);
+        bComma.setMinSize(75, 75);
+        bComma.setFont(font);
+        b0 = new Button("0");
+        b0.setOnAction(this::handle);
+        b0.setMinSize(75, 75);
+        b0.setFont(font);
+        bLika = new Button("=");
+        bLika.setOnAction(this::handle);
+        bLika.setMinSize(75, 75);
+        bLika.setFont(font);
+        bDela = new Button("÷");
+        bDela.setOnAction(this::handle);
+        bDela.setMinSize(75, 75);
+        bDela.setFont(font);
 
-        knapp1 = new Button("1");
-        knapp1.setMinSize(75, 75);
-        knapp1.setFont(font2);
-        knapp2 = new Button("2");
-        knapp2.setMinSize(75, 75);
-        knapp2.setFont(font2);
-        knapp3 = new Button("3");
-        knapp3.setMinSize(75, 75);
-        knapp3.setFont(font2);
-        knappPlus = new Button("+");
-        knappPlus.setMinSize(75, 75);
-        knappPlus.setFont(font);
+        b1 = new Button("1");
+        b1.setOnAction(this::handle);
+        b1.setMinSize(75, 75);
+        b1.setFont(font2);
+        b2 = new Button("2");
+        b2.setOnAction(this::handle);
+        b2.setMinSize(75, 75);
+        b2.setFont(font2);
+        b3 = new Button("3");
+        b3.setOnAction(this::handle);
+        b3.setMinSize(75, 75);
+        b3.setFont(font2);
+        bPlus = new Button("+");
+        bPlus.setOnAction(this::handle);
+        bPlus.setMinSize(75, 75);
+        bPlus.setFont(font);
 
-        knapp4 = new Button("4");
-        knapp4.setMinSize(75, 75);
-        knapp4.setFont(font2);
-        knapp5 = new Button("5");
-        knapp5.setMinSize(75, 75);
-        knapp5.setFont(font2);
-        knapp6 = new Button("6");
-        knapp6.setMinSize(75, 75);
-        knapp6.setFont(font2);
-        knappMinus = new Button("-");
-        knappMinus.setMinSize(75, 75);
-        knappMinus.setFont(font);
+        b4 = new Button("4");
+        b4.setOnAction(this::handle);
+        b4.setMinSize(75, 75);
+        b4.setFont(font2);
+        b5 = new Button("5");
+        b5.setOnAction(this::handle);
+        b5.setMinSize(75, 75);
+        b5.setFont(font2);
+        b6 = new Button("6");
+        b6.setOnAction(this::handle);
+        b6.setMinSize(75, 75);
+        b6.setFont(font2);
+        bMinus = new Button("-");
+        bMinus.setOnAction(this::handle);
+        bMinus.setMinSize(75, 75);
+        bMinus.setFont(font);
 
-        knapp7 = new Button("7");
-        knapp7.setMinSize(75, 75);
-        knapp7.setFont(font2);
-        knapp8 = new Button("8");
-        knapp8.setMinSize(75, 75);
-        knapp8.setFont(font2);
-        knapp9 = new Button("9");
-        knapp9.setMinSize(75, 75);
-        knapp9.setFont(font2);
-        knappMulti = new Button("*");
-        knappMulti.setMinSize(75, 75);
-        knappMulti.setFont(font);
+        b7 = new Button("7");
+        b7.setOnAction(this::handle);
+        b7.setMinSize(75, 75);
+        b7.setFont(font2);
+        b8 = new Button("8");
+        b8.setOnAction(this::handle);
+        b8.setMinSize(75, 75);
+        b8.setFont(font2);
+        b9 = new Button("9");
+        b9.setOnAction(this::handle);
+        b9.setMinSize(75, 75);
+        b9.setFont(font2);
+        bMulti = new Button("*");
+        bMulti.setOnAction(this::handle);
+        bMulti.setMinSize(75, 75);
+        bMulti.setFont(font);
 
         mainLayout = new BorderPane();
 
-        HBox box1 = new HBox(knapp1,knapp2,knapp3,knappPlus);
+        HBox box1 = new HBox(b1, b2, b3, bPlus);
         box1.setMinSize(75, 75);
-        HBox box2 = new HBox(knapp4,knapp5,knapp6,knappMinus);
+        HBox box2 = new HBox(b4, b5, b6, bMinus);
         box2.setMinSize(75, 75);
-        HBox box3 = new HBox(knapp7,knapp8,knapp9,knappMulti);
+        HBox box3 = new HBox(b7, b8, b9, bMulti);
         box3.setMinSize(75, 75);
-        HBox box4 = new HBox(knappComma,knapp0,knappLika,knappDela);
+        HBox box4 = new HBox(bComma, b0, bLika, bDela);
         box4.setMinSize(75, 75);
 
         VBox box = new VBox(box1,box2,box3,box4);
         box.setMinSize(300, 300);
         mainLayout.setCenter(box);
 
-        TextField field = new TextField();
+
         field.setMinSize(300, 50);
         mainLayout.setTop(field);
 
@@ -124,5 +142,71 @@ public class MiniLay extends Application{
 
         stage.show();
     }
-
+    @Override
+    public void handle(ActionEvent event) {
+        if(event.getSource().equals(b0))
+        {
+            field.textProperty().set(field.textProperty().get() + "0");
+        }
+        if(event.getSource().equals(b1))
+        {
+            field.textProperty().set(field.textProperty().get() + "1");
+        }
+        if(event.getSource().equals(b2))
+        {
+            field.textProperty().set(field.textProperty().get() + "2");
+        }
+        if(event.getSource().equals(b3))
+        {
+            field.textProperty().set(field.textProperty().get() + "3");
+        }
+        if(event.getSource().equals(b4))
+        {
+            field.textProperty().set(field.textProperty().get() + "4");
+        }
+        if(event.getSource().equals(b5))
+        {
+            field.textProperty().set(field.textProperty().get() + "5");
+        }
+        if(event.getSource().equals(b6))
+        {
+            field.textProperty().set(field.textProperty().get() + "6");
+        }
+        if(event.getSource().equals(b7))
+        {
+            field.textProperty().set(field.textProperty().get() + "7");
+        }
+        if(event.getSource().equals(b8))
+        {
+            field.textProperty().set(field.textProperty().get() + "8");
+        }
+        if(event.getSource().equals(b9))
+        {
+            field.textProperty().set(field.textProperty().get() + "9");
+        }
+        if(event.getSource().equals(bComma))
+        {
+            field.textProperty().set(field.textProperty().get() + ".");
+        }
+        if(event.getSource().equals(bLika))
+        {
+            miniNum.lika();
+        }
+        if(event.getSource().equals(bPlus))
+        {
+            miniNum.plus();
+        }
+        if(event.getSource().equals(bMinus))
+        {
+            miniNum.minus();
+        }
+        if(event.getSource().equals(bMulti))
+        {
+            miniNum.multi();
+        }
+        if(event.getSource().equals(bDela))
+        {
+            miniNum.dela();
+        }
+    }
 }
