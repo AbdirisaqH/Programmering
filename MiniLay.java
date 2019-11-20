@@ -1,18 +1,23 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
 
-public class MiniLay extends Application implements EventHandler<ActionEvent> {
+import java.util.function.UnaryOperator;
+
+public class MiniLay<textFormatter> extends Application implements EventHandler<ActionEvent> {
 
     MiniNum miniNum = new MiniNum(this);
 
@@ -128,8 +133,16 @@ public class MiniLay extends Application implements EventHandler<ActionEvent> {
         VBox box = new VBox(box1,box2,box3,box4);
         box.setMinSize(300, 300);
         mainLayout.setCenter(box);
-
-
+        // tillåter ine använderen skriva något annat än det som finns på knapparna
+        field.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    field.setText(newValue.replaceAll("[^\\d,+,.,=,*,-,÷]", ""));
+                }
+            }
+        });
         field.setMinSize(300, 50);
         mainLayout.setTop(field);
 
@@ -209,4 +222,6 @@ public class MiniLay extends Application implements EventHandler<ActionEvent> {
             miniNum.dela();
         }
     }
+
+
 }
