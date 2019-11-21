@@ -139,7 +139,7 @@ public class MiniLay<textFormatter> extends Application implements EventHandler<
             public void changed(ObservableValue<? extends String> observable, String oldValue,
                                 String newValue) {
                 if (!newValue.matches("\\d*")) {
-                    field.setText(newValue.replaceAll("[^\\d,+,.,=,*,-,÷]", ""));
+                    field.setText(newValue.replaceAll("[^\\d,+,.,=,*,÷,-]", ""));
                 }
             }
         });
